@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🐰 Memória das Artes - Coelhinho</title>
+  <title>🐰 Quiz das Artes - 6º Ano</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Baloo+2:wght@600;800&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- Fundo decorativo: nuvens, coelhinhos, cenouras -->
+  <!-- Fundo decorativo -->
   <div class="background-decor" aria-hidden="true">
     <div class="cloud c1"></div>
     <div class="cloud c2"></div>
@@ -20,16 +20,12 @@
     <div class="bunny bk3">🐰</div>
     <div class="carrot cr1">🥕</div>
     <div class="carrot cr2">🥕</div>
-    <div class="paw p1">🐾</div>
-    <div class="paw p2">🐾</div>
-    <div class="paw p3">🐾</div>
   </div>
 
   <header class="top-bar">
-    <h1 class="logo">🐰 Memória das Artes</h1>
+    <h1 class="logo">🐰 Quiz das Artes</h1>
     <div class="hud">
-      <div class="hud-item">⏱ <span id="timer">00:00</span></div>
-      <div class="hud-item">🎯 <span id="moves">0</span> jogadas</div>
+      <div class="hud-item">📝 <span id="q-number">1</span>/<span id="q-total">10</span></div>
       <div class="hud-item">⭐ <span id="score">0</span> pts</div>
       <div class="hud-item">❤️ <span id="lives">3</span></div>
     </div>
@@ -42,22 +38,32 @@
         <div class="bunny-hero">🐰</div>
         <h2>Olá, pequeno artista!</h2>
         <p>
-          Combine cada <strong>conceito de Arte</strong> com sua <strong>imagem</strong>.
-          Encontre todos os pares antes que suas vidas acabem!
+          Responda <strong>10 perguntas</strong> sobre <strong>Arte</strong>.
+          A cada acerto você ganha pontos — mas cuidado, errar custa uma vida!
         </p>
         <ul class="rules">
-          <li>🐰 6 pares de cartas — 12 cartas no total</li>
-          <li>❤️ Você tem 3 vidas — cada erro custa 1</li>
-          <li>⏱ Corra contra o relógio para ganhar bônus</li>
-          <li>💡 Cartas erradas voltam depois de 1 segundo</li>
+          <li>📝 São 10 perguntas de múltipla escolha</li>
+          <li>❤️ Você tem 3 vidas</li>
+          <li>⭐ Acertos valem pontos — quanto mais rápido, mais pontos!</li>
+          <li>🎨 Conteúdo: Artes Visuais do 6º ano</li>
         </ul>
-        <button id="btn-start" class="btn btn-primary">▶ Começar a Jogar</button>
+        <button id="btn-start" class="btn btn-primary">▶ Começar o Quiz</button>
       </div>
     </section>
 
-    <!-- TELA DO JOGO -->
-    <section id="game-screen" class="screen">
-      <div class="board" id="board" role="grid" aria-label="Tabuleiro do jogo da memória"></div>
+    <!-- TELA DO QUIZ -->
+    <section id="quiz-screen" class="screen">
+      <div class="quiz-card">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+
+        <h2 id="question-text" class="question-text">Pergunta aqui...</h2>
+
+        <div class="answers" id="answers"></div>
+
+        <div class="feedback" id="feedback"></div>
+      </div>
     </section>
 
     <!-- TELA FINAL -->
@@ -68,8 +74,8 @@
         <p id="end-message"></p>
         <div class="end-stats">
           <div><span id="final-score">0</span><small>Pontos</small></div>
-          <div><span id="final-time">00:00</span><small>Tempo</small></div>
-          <div><span id="final-moves">0</span><small>Jogadas</small></div>
+          <div><span id="final-correct">0</span><small>Acertos</small></div>
+          <div><span id="final-wrong">0</span><small>Erros</small></div>
         </div>
         <button id="btn-restart" class="btn btn-primary">🔄 Jogar Novamente</button>
       </div>
