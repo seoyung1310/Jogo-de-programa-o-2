@@ -5,10 +5,10 @@
   --sky:#EAF7FC;
   --white:#FFFFFF;
   --pink:#FFC7DD;
-  --pink-soft:#FFE4EE;
   --cream:#FFFBF3;
   --mint:#C8F0DC;
-  --lavender:#D9C7F2;
+  --red:#FF8FB1;
+  --green:#7FD8A5;
   --ink:#3D4A5C;
   --shadow:rgba(92,168,216,.35);
 }
@@ -31,14 +31,13 @@ body{
 /* ---------- FUNDO DECORATIVO ---------- */
 .background-decor{ position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
 
-/* Nuvens fofas em azul bebê */
 .cloud{
   position:absolute;
   background:#fff;
   border-radius:50%;
   box-shadow: 0 8px 22px rgba(168,216,234,.55);
   opacity:.85;
-  animation: drift 22s linear infinite;
+  animation: drift 28s linear infinite;
 }
 .cloud::before, .cloud::after{
   content:''; position:absolute; background:#fff; border-radius:50%;
@@ -47,8 +46,8 @@ body{
 .cloud::after{ width:50%; height:90%; top:-20%; right:10%; }
 
 .c1{ width:110px; height:55px; top:12%; left:-140px; animation-delay:0s;}
-.c2{ width:150px; height:70px; top:35%; left:-200px; animation-delay:6s;}
-.c3{ width:90px;  height:45px; top:65%; left:-120px; animation-delay:12s;}
+.c2{ width:150px; height:70px; top:38%; left:-200px; animation-delay:8s;}
+.c3{ width:90px;  height:45px; top:68%; left:-120px; animation-delay:16s;}
 
 @keyframes drift{
   0%{ transform:translateX(0);}
@@ -73,23 +72,11 @@ body{
   position:absolute; font-size:36px; opacity:.9;
   animation: swing 5s ease-in-out infinite;
 }
-.cr1{ top:55%; left:10%; }
-.cr2{ bottom:6%; right:30%; font-size:28px; animation-delay:1s;}
+.cr1{ top:55%; left:8%; }
+.cr2{ bottom:6%; right:28%; font-size:28px; animation-delay:1s;}
 @keyframes swing{
   0%,100%{ transform:rotate(-8deg);}
   50%{ transform:rotate(10deg);}
-}
-
-.paw{
-  position:absolute; font-size:26px; opacity:.35;
-  animation: fadePulse 4s ease-in-out infinite;
-}
-.p1{ top:8%; left:30%; }
-.p2{ bottom:20%; left:55%; animation-delay:1.3s;}
-.p3{ top:60%; right:22%; animation-delay:2.2s;}
-@keyframes fadePulse{
-  0%,100%{ opacity:.2; transform:scale(.9);}
-  50%{ opacity:.5; transform:scale(1.1);}
 }
 
 /* ---------- HEADER ---------- */
@@ -119,7 +106,7 @@ body{
 
 /* ---------- MAIN / SCREENS ---------- */
 main{ position:relative; z-index:2; padding:24px 16px 60px; display:flex; justify-content:center; }
-.screen{ display:none; width:100%; max-width:1100px; }
+.screen{ display:none; width:100%; max-width:820px; }
 .screen.active{ display:block; animation: fadeIn .4s ease; }
 @keyframes fadeIn{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:none;} }
 
@@ -130,7 +117,6 @@ main{ position:relative; z-index:2; padding:24px 16px 60px; display:flex; justif
   padding:36px 32px;
   max-width:640px; margin:40px auto;
   text-align:center;
-  position:relative;
   box-shadow:
     0 22px 44px var(--shadow),
     inset 0 0 0 6px #fff,
@@ -173,94 +159,106 @@ main{ position:relative; z-index:2; padding:24px 16px 60px; display:flex; justif
 .btn-primary:hover{ transform:translateY(-2px); filter:brightness(1.06); }
 .btn-primary:active{ transform:translateY(4px); box-shadow:0 2px 0 #4A8DB8; }
 
-/* ---------- TABULEIRO ---------- */
-.board{
-  display:grid;
-  grid-template-columns:repeat(4, minmax(0,1fr));
-  gap:14px;
-  margin:10px auto 0;
-  max-width:820px;
+/* ---------- CARD DO QUIZ ---------- */
+.quiz-card{
+  background:var(--white);
+  border-radius:28px;
+  padding:28px 26px 26px;
+  box-shadow:
+    0 22px 44px var(--shadow),
+    inset 0 0 0 6px #fff,
+    inset 0 0 0 10px var(--baby-blue-soft);
+  border:3px dashed var(--baby-blue);
 }
 
-.card{
-  aspect-ratio: 3/4;
-  perspective: 1200px;
-  cursor:pointer;
-  position:relative;
-}
-.card-inner{
-  position:relative; width:100%; height:100%;
-  transition: transform .55s cubic-bezier(.5,.05,.4,1);
-  transform-style: preserve-3d;
-}
-.card.flipped .card-inner,
-.card.matched .card-inner{ transform: rotateY(180deg); }
-
-.card-face{
-  position:absolute; inset:0; border-radius:22px;
-  backface-visibility:hidden;
-  display:flex; align-items:center; justify-content:center;
+.progress-bar{
+  width:100%; height:14px;
+  background:var(--baby-blue-soft);
+  border-radius:999px;
   overflow:hidden;
-  box-shadow:0 10px 22px rgba(92,168,216,.28), inset 0 0 0 3px rgba(255,255,255,.9);
+  margin-bottom:22px;
+  box-shadow: inset 0 2px 4px rgba(92,168,216,.25);
+}
+.progress-fill{
+  height:100%; width:0%;
+  background:linear-gradient(90deg,var(--baby-blue),var(--baby-blue-dark));
+  border-radius:999px;
+  transition: width .4s ease;
 }
 
-/* Verso da carta — patinha + gradiente azul */
-.card-back{
-  background:
-    radial-gradient(circle at 30% 25%, var(--baby-blue-soft) 0%, transparent 55%),
-    radial-gradient(circle at 75% 75%, #BDDFF0 0%, transparent 55%),
-    linear-gradient(140deg, var(--baby-blue) 0%, var(--baby-blue-dark) 100%);
-  position:relative;
-}
-.card-back::after{
-  content:"🐰";
-  position:absolute;
-  font-size:clamp(2.2rem,6vw,3rem);
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,.25));
-}
-.card-back::before{
-  content:"🐾";
-  position:absolute;
-  top:8px; right:10px;
-  font-size:.9rem;
-  opacity:.7;
-}
-
-/* Frente da carta (revelada) */
-.card-front{
-  transform: rotateY(180deg);
-  background:linear-gradient(180deg,#FFFFFF 0%, var(--sky) 100%);
-  flex-direction:column;
-  padding:10px;
+.question-text{
+  font-family:'Fredoka', sans-serif;
+  font-size:clamp(1.15rem, 3vw, 1.5rem);
+  color:var(--ink);
   text-align:center;
+  margin-bottom:22px;
+  line-height:1.35;
+  min-height:60px;
+  display:flex; align-items:center; justify-content:center;
 }
 
-.card-front svg{ width:100%; height:65%; }
-.card-front .label{
-  font-family:'Fredoka',sans-serif;
-  font-size:clamp(.72rem,1.6vw,1rem);
-  font-weight:700; color:var(--ink);
-  margin-top:6px; line-height:1.15;
-  padding:0 6px;
+.answers{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
 }
 
-.card.matched .card-front{
-  background:linear-gradient(180deg,#E5F7FF,#C8F0DC);
-  box-shadow:0 0 0 4px var(--baby-blue-dark), 0 10px 22px rgba(92,168,216,.45);
+.answer-btn{
+  font-family:'Quicksand', sans-serif;
+  font-weight:700;
+  font-size:1rem;
+  padding:18px 16px;
+  background:var(--sky);
+  color:var(--ink);
+  border:3px solid var(--baby-blue-soft);
+  border-radius:20px;
+  cursor:pointer;
+  transition: all .2s ease;
+  text-align:center;
+  line-height:1.25;
+  min-height:70px;
+  display:flex; align-items:center; justify-content:center;
+}
+.answer-btn:hover:not(:disabled){
+  background:var(--baby-blue-soft);
+  border-color:var(--baby-blue);
+  transform: translateY(-3px);
+  box-shadow:0 8px 18px rgba(92,168,216,.30);
+}
+.answer-btn:disabled{ cursor:default; }
+
+.answer-btn.correct{
+  background:var(--green);
+  border-color:#4CAF80;
+  color:#fff;
   animation: pop .4s ease;
 }
-.card.matched{ cursor:default; pointer-events:none; }
-@keyframes pop{ 50%{ transform:scale(1.06);} }
-
-.card.wrong .card-front{
+.answer-btn.wrong{
+  background:var(--red);
+  border-color:#D66E8F;
+  color:#fff;
   animation: shake .4s ease;
-  box-shadow:0 0 0 4px #FF8FB1;
 }
+
+@keyframes pop{ 0%,100%{transform:scale(1);} 50%{transform:scale(1.05);} }
 @keyframes shake{
-  0%,100%{ transform: translateX(0) rotateY(180deg);}
-  25%{ transform: translateX(-6px) rotateY(180deg);}
-  75%{ transform: translateX(6px) rotateY(180deg);}
+  0%,100%{transform:translateX(0);}
+  25%{transform:translateX(-6px);}
+  75%{transform:translateX(6px);}
 }
+
+.feedback{
+  text-align:center;
+  font-family:'Fredoka',sans-serif;
+  font-size:1.15rem;
+  font-weight:700;
+  margin-top:18px;
+  min-height:30px;
+  color:var(--baby-blue-dark);
+  transition: all .3s ease;
+}
+.feedback.good{ color:#4CAF80; }
+.feedback.bad{ color:#D66E8F; }
 
 /* Estatísticas finais */
 .end-stats{
@@ -286,12 +284,9 @@ footer{
 }
 
 /* ---------- RESPONSIVO ---------- */
-@media (max-width:720px){
-  .board{ grid-template-columns:repeat(3, 1fr); gap:10px; }
-  .card-front svg{ height:60%; }
-}
-@media (max-width:480px){
-  .board{ grid-template-columns:repeat(2, 1fr); }
+@media (max-width:600px){
+  .answers{ grid-template-columns:1fr; }
   .hud-item{ padding:6px 10px; font-size:.8rem; }
   .card-start, .card-end{ padding:24px 18px; margin:16px auto;}
+  .quiz-card{ padding:22px 16px 18px; }
 }
